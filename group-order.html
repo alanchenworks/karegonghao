@@ -227,6 +227,70 @@ textarea{
 
 }
 
+.loading-overlay{
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.65);
+
+    z-index:9999;
+
+    justify-content:center;
+    align-items:center;
+
+}
+
+.loading-box{
+
+    background:#FFF;
+
+    padding:30px;
+
+    border-radius:16px;
+
+    text-align:center;
+
+    min-width:220px;
+
+}
+
+.spinner{
+
+    width:48px;
+    height:48px;
+
+    border:4px solid #DDD;
+
+    border-top:4px solid #C89B3C;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+    margin:0 auto 16px;
+
+}
+
+@keyframes spin{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
 </style>
 </head>
 
@@ -288,6 +352,42 @@ textarea{
             <div class="form-group">
                 <label>LINE 名稱</label>
                 <input type="text" name="line_name">
+            </div>
+
+            <div class="form-group">
+                <label>Decision Maker（決策者）</label>
+                <select name="decision_maker">
+                    <option value="">請選擇</option>
+                    <option>員工</option>
+                    <option>主管</option>
+                    <option>護理長</option>
+                    <option>行政</option>
+                    <option>採購</option>
+                    <option>HR</option>
+                    <option>其他</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>來源 Source</label>
+                <select name="source">
+                    <option value="">請選擇</option>
+                    <option>海報</option>
+                    <option>FB</option>
+                    <option>IG</option>
+                    <option>朋友介紹</option>
+                    <option>社區活動</option>
+                    <option>其他</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>是否首次團購</label>
+                <select name="first_purchase">
+                    <option value="">請選擇</option>
+                    <option>是</option>
+                    <option>否</option>
+                </select>
             </div>
 
             <div class="section-title">
@@ -456,6 +556,10 @@ document
         company_name : form.company_name.value,
         contact_name : form.contact_name.value,
 
+        decision_maker : form.decision_maker.value,
+        source : form.source.value,
+        first_purchase : form.first_purchase.value,
+
         pickup_date : form.pickup_date.value,
         pickup_time : form.pickup_time.value,
         pickup_node : form.pickup_node.value,
@@ -480,6 +584,10 @@ document
 
     try {
 
+        document
+        .getElementById("loadingOverlay")
+        .style.display = "flex";
+
         const response = await fetch(
             WEB_APP_URL,
             {
@@ -499,13 +607,25 @@ document
 
             form.reset();
 
+            document
+            .getElementById("loadingOverlay")
+            .style.display = "none";
+
         } else {
+
+            document
+            .getElementById("loadingOverlay")
+            .style.display = "none";
 
             alert("送出失敗");
 
         }
 
     } catch(error){
+
+        document
+        .getElementById("loadingOverlay")
+        .style.display = "none";
 
         console.error(error);
 
@@ -516,6 +636,22 @@ document
 });
 
 </script>
+
+<div id="loadingOverlay" class="loading-overlay">
+
+    <div class="loading-box">
+
+        <div class="spinner"></div>
+
+        <p>
+            訂單送出中...
+            <br>
+            請稍候
+        </p>
+
+    </div>
+
+</div>
 
 </body>
 </html>
