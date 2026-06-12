@@ -68,7 +68,7 @@
 
         .ranking-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 24px;
         }
 
@@ -239,8 +239,8 @@
                     </div>
 
                     <div class="kpi-card">
-                        <div class="kpi-label">合作據點數</div>
-                        <div class="kpi-value" id="partnerNodes">0</div>
+                        <div class="kpi-label">首次購買人數</div>
+                        <div class="kpi-value" id="firstPurchaseCount">0</div>
                     </div>
 
                 </div>
@@ -260,6 +260,22 @@
                         <h3>熱門據點 Top 5</h3>
 
                         <ul id="topNodes" class="ranking-list"></ul>
+
+                    </div>
+
+                    <div class="ranking-card">
+
+                        <h3>來源統計</h3>
+
+                        <ul id="sourceStats" class="ranking-list"></ul>
+
+                    </div>
+
+                    <div class="ranking-card">
+
+                        <h3>決策者統計</h3>
+
+                        <ul id="decisionStats" class="ranking-list"></ul>
 
                     </div>
 
@@ -363,7 +379,7 @@
         document.getElementById("repeatCustomers").textContent = data.repeatCustomers;
         document.getElementById("repurchaseRate").textContent = data.repurchaseRate + "%";
         document.getElementById("totalMeals").textContent = data.totalMeals;
-        document.getElementById("partnerNodes").textContent = data.partnerNodes;
+        document.getElementById("firstPurchaseCount").textContent =data.firstPurchaseCount;
 
         const topItems = document.getElementById("topItems");
 
@@ -392,6 +408,38 @@
             `;
 
             topNodes.appendChild(li);
+
+        });
+
+        const sourceStats = 
+        document.getElementById("sourceStats");
+
+        data.sourceStats.forEach(item => {
+
+            const li = document.createElement("li");
+
+            li.innerHTML = `
+                <span>${item[0]}</span>
+                <span>${item[1]}</span>
+            `;
+
+            sourceStats.appendChild(li);
+
+        });
+
+        const decisionStats =
+        document.getElementById("decisionStats");
+
+        data.decisionStats.forEach(item => {
+
+            const li = document.createElement("li");
+
+            li.innerHTML = `
+                <span>${item[0]}</span>
+                <span>${item[1]}</span>
+            `;
+
+            decisionStats.appendChild(li);
 
         });
 
