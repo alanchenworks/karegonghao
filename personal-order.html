@@ -582,6 +582,37 @@ document
 
     const form = e.target;
 
+    const selectedDate =
+    new Date(
+        form.pickup_date.value
+    );
+
+    selectedDate.setHours(
+        0,0,0,0
+    );
+
+    const minDate =
+    new Date();
+
+    minDate.setHours(
+        0,0,0,0
+    );
+
+    minDate.setDate(
+        minDate.getDate() + 1
+    );
+
+    if (
+        selectedDate < minDate
+    ) {
+
+        alert(
+            "不受理當日及過往日期訂單"
+        );
+
+        return;
+    }
+
     const data = {
 
         order_type : "personal",
