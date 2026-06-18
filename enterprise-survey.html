@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>企業體驗回饋問卷｜卡哩共好</title>
+
+<meta name="description" content="企業體驗回饋問卷">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Noto Sans TC",sans-serif;
+    background:#FAF8F3;
+    color:#333;
+    line-height:1.8;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+    padding:24px;
+}
+
+.back-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:48px;
+    height:48px;
+    border:1px solid #D8D2C8;
+    border-radius:50%;
+    text-decoration:none;
+    color:#3E2F24;
+    font-size:22px;
+    margin-bottom:24px;
+    background:#FFF;
+}
+
+.back-link:hover{
+    background:#F4F1EA;
+}
+
+h1{
+    color:#3E2F24;
+    margin-bottom:20px;
+    font-size:32px;
+}
+
+.intro{
+    background:#FFF;
+    padding:24px;
+    border-radius:16px;
+    margin-bottom:32px;
+    color:#555;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.form-wrapper{
+    background:#FFF;
+    padding:32px;
+    border-radius:16px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.section-title{
+    margin-top:40px;
+    margin-bottom:20px;
+    font-size:20px;
+    font-weight:700;
+    color:#3E2F24;
+}
+
+.form-group{
+    margin-bottom:24px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#3E2F24;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid #D8D2C8;
+    border-radius:10px;
+    font-size:16px;
+    background:#FFF;
+}
+
+textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.radio-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.radio-group label{
+    font-weight:400;
+    margin:0;
+}
+
+.checkbox-group{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.checkbox-group label{
+    font-weight:400;
+    margin:0;
+}
+
+.nps-group{
+    display:grid;
+    grid-template-columns:repeat(11,1fr);
+    gap:8px;
+}
+
+.nps-group label{
+    text-align:center;
+    font-weight:400;
+}
+
+.submit-btn{
+    width:100%;
+    margin-top:20px;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    background:#C89B3C;
+    color:#FFF;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.submit-btn:hover{
+    opacity:0.9;
+}
+
+.loading-overlay{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.65);
+    z-index:9999;
+    justify-content:center;
+    align-items:center;
+}
+
+.loading-box{
+    background:#FFF;
+    padding:30px;
+    border-radius:16px;
+    text-align:center;
+    min-width:220px;
+}
+
+.spinner{
+    width:48px;
+    height:48px;
+    border:4px solid #DDD;
+    border-top:4px solid #C89B3C;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:0 auto 16px;
+}
+
+@keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+@media(max-width:768px){
+
+    .container{
+        padding:20px;
+    }
+
+    .form-wrapper{
+        padding:24px;
+    }
+
+    .nps-group{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a
+        href="order-form.html"
+        class="back-link"
+        aria-label="返回上一頁"
+        title="返回上一頁"
+    >
+        ←
+    </a>
+
+    <h1>企業體驗回饋問卷</h1>
+
+    <div class="intro">
+
+        感謝您參與卡哩共好企業午餐體驗計畫。
+
+        <br><br>
+
+        您的回饋將協助我們持續改善服務品質，
+        並發展更符合企業需求的合作方案。
+
+    </div>
+
+    <div class="form-wrapper">
+
+        <form id="enterpriseSurveyForm">
+
+            <div class="section-title">
+                基本資料
+            </div>
+
+            <div class="form-group">
+                <label>公司／單位名稱</label>
+                <input type="text" name="company_name">
+            </div>
+
+            <div class="form-group">
+                <label>填寫人姓名</label>
+                <input type="text" name="contact_name">
+            </div>
+
+            <div class="form-group">
+                <label>聯絡方式</label>
+
+                <div class="checkbox-group">
+
+                    <label><input type="checkbox" name="contact_method" value="LINE"> LINE</label>
+
+                    <label><input type="checkbox" name="contact_method" value="Email"> Email</label>
+
+                    <label><input type="checkbox" name="contact_method" value="電話"> 電話</label>
+
+                </div>
+
+            </div>
+
+            <div class="section-title">
+                餐點體驗評價
+            </div>
+
+            <div class="form-group">
+
+                <label>整體滿意度</label>
+
+                <select name="overall_satisfaction">
+                    <option value="">請選擇</option>
+                    <option>非常滿意</option>
+                    <option>滿意</option>
+                    <option>普通</option>
+                    <option>不滿意</option>
+                    <option>非常不滿意</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>餐點口味評價</label>
+
+                <select name="taste_rating">
+                    <option value="">請選擇</option>
+                    <option>非常滿意</option>
+                    <option>滿意</option>
+                    <option>普通</option>
+                    <option>不滿意</option>
+                    <option>非常不滿意</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>餐點份量評價</label>
+
+                <select name="portion_rating">
+                    <option value="">請選擇</option>
+                    <option>非常滿意</option>
+                    <option>滿意</option>
+                    <option>普通</option>
+                    <option>不滿意</option>
+                    <option>非常不滿意</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>配送與餐點狀態評價</label>
+
+                <select name="delivery_rating">
+                    <option value="">請選擇</option>
+                    <option>非常滿意</option>
+                    <option>滿意</option>
+                    <option>普通</option>
+                    <option>不滿意</option>
+                    <option>非常不滿意</option>
+                </select>
+
+            </div>
+
+            <div class="section-title">
+                體驗感想
+            </div>
+
+            <div class="form-group">
+
+                <label>最喜歡的地方</label>
+
+                <textarea
+                    name="favorite_part"
+                    placeholder="請分享您的體驗感受"
+                ></textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>可改善的地方</label>
+
+                <textarea
+                    name="improvement_suggestion"
+                    placeholder="請提供您的建議"
+                ></textarea>
+
+            </div>
+
+            <div class="section-title">
+                合作意願調查
+            </div>
+
+            <div class="form-group">
+
+                <label>未來是否願意再次訂購</label>
+
+                <select name="reorder_intent">
+                    <option value="">請選擇</option>
+                    <option>願意</option>
+                    <option>視需求而定</option>
+                    <option>暫無需求</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>有興趣的合作方式</label>
+
+                <div class="checkbox-group">
+
+                    <label><input type="checkbox" name="cooperation_type" value="企業團購訂餐"> 企業團購訂餐</label>
+
+                    <label><input type="checkbox" name="cooperation_type" value="員工個人訂餐"> 員工個人訂餐</label>
+
+                    <label><input type="checkbox" name="cooperation_type" value="定期午餐方案"> 定期午餐方案</label>
+
+                    <label><input type="checkbox" name="cooperation_type" value="共好合作計畫"> 共好合作計畫</label>
+
+                    <label><input type="checkbox" name="cooperation_type" value="目前暫無需求"> 目前暫無需求</label>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>較有興趣的訂購數量</label>
+
+                <select name="order_volume">
+                    <option value="">請選擇</option>
+                    <option>1~5份</option>
+                    <option>6~10份</option>
+                    <option>11~20份</option>
+                    <option>21份以上</option>
+                </select>
+
+            </div>
+
+            <div class="section-title">
+                推薦意願（NPS）
+            </div>
+
+            <div class="form-group">
+
+                <label>您願意向同事或朋友推薦卡哩嗎？</label>
+
+                <div class="nps-group">
+
+                    <label><input type="radio" name="nps_score" value="0">0</label>
+                    <label><input type="radio" name="nps_score" value="1">1</label>
+                    <label><input type="radio" name="nps_score" value="2">2</label>
+                    <label><input type="radio" name="nps_score" value="3">3</label>
+                    <label><input type="radio" name="nps_score" value="4">4</label>
+                    <label><input type="radio" name="nps_score" value="5">5</label>
+                    <label><input type="radio" name="nps_score" value="6">6</label>
+                    <label><input type="radio" name="nps_score" value="7">7</label>
+                    <label><input type="radio" name="nps_score" value="8">8</label>
+                    <label><input type="radio" name="nps_score" value="9">9</label>
+                    <label><input type="radio" name="nps_score" value="10">10</label>
+
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                送出問卷
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div id="loadingOverlay" class="loading-overlay">
+
+    <div class="loading-box">
+
+        <div class="spinner"></div>
+
+        <p>
+            問卷送出中...
+            <br>
+            請稍候
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+document
+.getElementById("enterpriseSurveyForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    document
+    .getElementById("loadingOverlay")
+    .style.display = "flex";
+
+    const form = e.target;
+
+    const contactMethods =
+    Array.from(
+        document.querySelectorAll(
+            'input[name="contact_method"]:checked'
+        )
+    )
+    .map(cb => cb.value)
+    .join(",");
+
+    const cooperationTypes =
+    Array.from(
+        document.querySelectorAll(
+            'input[name="cooperation_type"]:checked'
+        )
+    )
+    .map(cb => cb.value)
+    .join(",");
+
+    const data = {
+
+        company_name:
+            form.company_name.value,
+
+        contact_name:
+            form.contact_name.value,
+
+        contact_method:
+            contactMethods,
+
+        overall_satisfaction:
+            form.overall_satisfaction.value,
+
+        taste_rating:
+            form.taste_rating.value,
+
+        portion_rating:
+            form.portion_rating.value,
+
+        delivery_rating:
+            form.delivery_rating.value,
+
+        favorite_part:
+            form.favorite_part.value,
+
+        improvement_suggestion:
+            form.improvement_suggestion.value,
+
+        reorder_intent:
+            form.reorder_intent.value,
+
+        cooperation_type:
+            cooperationTypes,
+
+        order_volume:
+            form.order_volume.value,
+
+        nps_score:
+            form.nps_score.value
+
+    };
+
+    try {
+
+        await fetch(
+            "https://script.google.com/macros/s/AKfycbzoDDf1E3AmhOK4q6RJw6R0o8HT9crrfj2O3cEvkQZVvyl45Q27RpNA-NB7uBNplB95/exec",
+            {
+                method: "POST",
+                body: JSON.stringify(data)
+            }
+        );
+
+        alert(
+            "問卷送出成功\n\n感謝您的回饋"
+        );
+
+        form.reset();
+
+    }
+    catch(err){
+
+        alert(
+            "送出失敗，請稍後再試"
+        );
+
+    }
+
+    document
+    .getElementById("loadingOverlay")
+    .style.display = "none";
+
+});
+
+</script>
+
+</body>
+</html>
