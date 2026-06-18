@@ -546,6 +546,7 @@ document
 
     try {
 
+        const response =
         await fetch(
             "https://script.google.com/macros/s/AKfycbzoDDf1E3AmhOK4q6RJw6R0o8HT9crrfj2O3cEvkQZVvyl45Q27RpNA-NB7uBNplB95/exec",
             {
@@ -553,6 +554,8 @@ document
                 body: JSON.stringify(data)
             }
         );
+
+        console.log(response);
 
         alert(
             "問卷送出成功\n\n感謝您的回饋"
