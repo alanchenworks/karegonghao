@@ -211,6 +211,18 @@ textarea{
 
 }
 
+.checkbox-group input,
+.radio-group input,
+.nps-group input{
+    width:auto;
+}
+
+.checkbox-group label{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
 </style>
 </head>
 
@@ -258,19 +270,23 @@ textarea{
                 <input type="text" name="contact_name">
             </div>
 
-            <div class="form-group">
+            <div class="section-title">
                 <label>聯絡方式</label>
+            </div>
 
-                <div class="checkbox-group">
+            <div class="form-group">
+                <label>LINE ID</label>
+                <input type="text" name="line_id">
+            </div>
 
-                    <label><input type="checkbox" name="contact_method" value="LINE"> LINE</label>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email">
+            </div>
 
-                    <label><input type="checkbox" name="contact_method" value="Email"> Email</label>
-
-                    <label><input type="checkbox" name="contact_method" value="電話"> 電話</label>
-
-                </div>
-
+            <div class="form-group">
+                <label>電話</label>
+                <input type="text" name="phone">
             </div>
 
             <div class="section-title">
@@ -483,15 +499,6 @@ document
 
     const form = e.target;
 
-    const contactMethods =
-    Array.from(
-        document.querySelectorAll(
-            'input[name="contact_method"]:checked'
-        )
-    )
-    .map(cb => cb.value)
-    .join(",");
-
     const cooperationTypes =
     Array.from(
         document.querySelectorAll(
@@ -509,8 +516,14 @@ document
         contact_name:
             form.contact_name.value,
 
-        contact_method:
-            contactMethods,
+        line_id:
+            form.line_id.value,
+
+        email:
+            form.email.value,
+
+        phone:
+            form.phone.value,
 
         overall_satisfaction:
             form.overall_satisfaction.value,
