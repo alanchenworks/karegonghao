@@ -562,6 +562,17 @@ document
 
         console.log(result);
 
+        if (!result.success) {
+
+            alert(
+                "送出失敗\n\n" +
+                result.message
+            );
+
+            return;
+
+        }
+
         alert(
             "問卷送出成功\n\n感謝您的回饋"
         );
