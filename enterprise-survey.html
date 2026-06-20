@@ -223,6 +223,10 @@ textarea{
     gap:10px;
 }
 
+.required{
+    color:#C0392B;
+}
+
 </style>
 </head>
 
@@ -271,7 +275,7 @@ textarea{
             </div>
 
             <div class="form-group">
-                <label>公司／單位名稱</label>
+                <label>公司／單位名稱<span class="required">*</span></label>
                 <input type="text" name="company_name">
             </div>
 
@@ -305,7 +309,7 @@ textarea{
 
             <div class="form-group">
 
-                <label>整體滿意度</label>
+                <label>整體滿意度<span class="required">*</span></label>
 
                 <select name="overall_satisfaction">
                     <option value="">請選擇</option>
@@ -320,7 +324,7 @@ textarea{
 
             <div class="form-group">
 
-                <label>餐點口味評價</label>
+                <label>餐點口味評價<span class="required">*</span></label>
 
                 <select name="taste_rating">
                     <option value="">請選擇</option>
@@ -335,7 +339,7 @@ textarea{
 
             <div class="form-group">
 
-                <label>餐點份量評價</label>
+                <label>餐點份量評價<span class="required">*</span></label>
 
                 <select name="portion_rating">
                     <option value="">請選擇</option>
@@ -350,7 +354,7 @@ textarea{
 
             <div class="form-group">
 
-                <label>配送與餐點狀態評價</label>
+                <label>配送與餐點狀態評價<span class="required">*</span></label>
 
                 <select name="delivery_rating">
                     <option value="">請選擇</option>
@@ -395,7 +399,7 @@ textarea{
 
             <div class="form-group">
 
-                <label>未來是否願意再次訂購</label>
+                <label>未來是否願意再次訂購<span class="required">*</span></label>
 
                 <select name="reorder_intent">
                     <option value="">請選擇</option>
@@ -408,7 +412,7 @@ textarea{
 
             <div class="form-group">
 
-                <label>有興趣的合作方式</label>
+                <label>有興趣的合作方式<span class="required">*</span></label>
 
                 <div class="checkbox-group">
 
@@ -428,7 +432,7 @@ textarea{
 
             <div class="form-group">
 
-                <label>較有興趣的訂購數量</label>
+                <label>較有興趣的訂購數量<span class="required">*</span></label>
 
                 <select name="order_volume">
                     <option value="">請選擇</option>
@@ -446,7 +450,7 @@ textarea{
 
             <div class="form-group">
 
-                <label>您願意向同事或朋友推薦卡哩嗎？</label>
+                <label>您願意向同事或朋友推薦卡哩嗎？<span class="required">*</span></label>
 
                 <div class="nps-group">
 
@@ -525,7 +529,7 @@ const requiredFields = [
         value: form.company_name.value
     },
 
-    {
+    /* {
         name: "填寫人姓名",
         value: form.contact_name.value
     },
@@ -543,7 +547,7 @@ const requiredFields = [
     {
         name: "電話",
         value: form.phone.value
-    },
+    }, */
 
     {
         name: "整體滿意度",
@@ -565,7 +569,7 @@ const requiredFields = [
         value: form.delivery_rating.value
     },
 
-    {
+    /* {
         name: "最喜歡的地方",
         value: form.favorite_part.value
     },
@@ -573,7 +577,7 @@ const requiredFields = [
     {
         name: "可改善的地方",
         value: form.improvement_suggestion.value
-    },
+    }, */
 
     {
         name: "未來是否願意再次訂購",
