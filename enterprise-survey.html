@@ -518,6 +518,119 @@ document
     .map(cb => cb.value)
     .join(",");
 
+const requiredFields = [
+
+    {
+        name: "公司／單位名稱",
+        value: form.company_name.value
+    },
+
+    {
+        name: "填寫人姓名",
+        value: form.contact_name.value
+    },
+
+    {
+        name: "LINE ID",
+        value: form.line_id.value
+    },
+
+    {
+        name: "Email",
+        value: form.email.value
+    },
+
+    {
+        name: "電話",
+        value: form.phone.value
+    },
+
+    {
+        name: "整體滿意度",
+        value: form.overall_satisfaction.value
+    },
+
+    {
+        name: "餐點口味評價",
+        value: form.taste_rating.value
+    },
+
+    {
+        name: "餐點份量評價",
+        value: form.portion_rating.value
+    },
+
+    {
+        name: "配送與餐點狀態評價",
+        value: form.delivery_rating.value
+    },
+
+    {
+        name: "最喜歡的地方",
+        value: form.favorite_part.value
+    },
+
+    {
+        name: "可改善的地方",
+        value: form.improvement_suggestion.value
+    },
+
+    {
+        name: "未來是否願意再次訂購",
+        value: form.reorder_intent.value
+    },
+
+    {
+        name: "較有興趣的訂購數量",
+        value: form.order_volume.value
+    }
+
+];
+
+for (const field of requiredFields) {
+
+    if (!field.value.trim()) {
+
+        document
+        .getElementById("loadingOverlay")
+        .style.display = "none";
+
+        alert(
+            "請填寫：" +
+            field.name
+        );
+
+        return;
+    }
+
+}
+
+if (!cooperationTypes) {
+
+    document
+    .getElementById("loadingOverlay")
+    .style.display = "none";
+
+    alert(
+        "請選擇：有興趣的合作方式"
+    );
+
+    return;
+}
+
+if (!form.nps_score.value) {
+
+    document
+    .getElementById("loadingOverlay")
+    .style.display = "none";
+
+    alert(
+        "請選擇：推薦意願（NPS）"
+    );
+
+    return;
+}
+
     const data = {
 
         company_name:
