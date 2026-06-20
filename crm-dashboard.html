@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CRM Dashboard - 卡哩共好</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+
+        body {
+            background: #f8f9fb;
+        }
+
+        .dashboard-hero {
+            padding: 60px 20px 30px;
+            text-align: center;
+        }
+
+        .dashboard-hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .dashboard-hero p {
+            color: #666;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .kpi-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px 24px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+
+        .kpi-label {
+            color: #777;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .kpi-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .table-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            overflow-x: auto;
+        }
+
+        .table-card h3 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f5f5f5;
+            font-weight: 600;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 80px 20px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-value {
+                font-size: 2.2rem;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <section class="dashboard-hero">
+
+        <h2>CRM Dashboard</h2>
+
+        <p>
+            客戶關係管理總覽
+        </p>
+
+    </section>
+
+    <section>
+
+        <div class="dashboard-container">
+
+            <div id="loading" class="loading">
+                讀取資料中...
+            </div>
+
+            <div id="dashboardContent" style="display:none;">
+
+                <div class="kpi-grid">
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">客戶總數</div>
+                        <div class="kpi-value" id="totalCustomers">0</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">回購率</div>
+                        <div class="kpi-value" id="repurchaseRate">0%</div>
+                    </div>
+
+                </div>
+
+                <div class="table-card">
+
+                    <h3>客戶資料庫</h3>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>客戶姓名</th>
+                                <th>公司名稱</th>
+                                <th>聯絡人</th>
+                                <th>LINE名稱</th>
+                                <th>來源</th>
+                                <th>決策者</th>
+                                <th>購買次數</th>
+                                <th>最後購買日期</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="customerTableBody">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <script>
+
+    const API_URL =
+    "https://script.google.com/macros/s/AKfycbydkuYYK9nokEHeazKTrYQhvxjl_vmN1QaVS1PwVU-uiC0sC-C3cN4u9ZxEpL_Ax7aK/exec?action=crm";
+
+    fetch(API_URL)
+    .then(response => response.json())
+    .then(data => {
+
+        document.getElementById("loading").style.display = "none";
+
+        document.getElementById("dashboardContent").style.display = "block";
+
+        document.getElementById("totalCustomers").textContent =
+        data.totalCustomers;
+
+        document.getElementById("repurchaseRate").textContent =
+        data.repurchaseRate + "%";
+
+        const tbody =
+        document.getElementById("customerTableBody");
+
+        data.customers.forEach(customer => {
+
+            const tr =
+            document.createElement("tr");
+
+            tr.innerHTML = `
+
+                <td>${customer.name || ""}</td>
+
+                <td>${customer.company_name || ""}</td>
+
+                <td>${customer.contact_name || ""}</td>
+
+                <td>${customer.line_name || ""}</td>
+
+                <td>${customer.source || ""}</td>
+
+                <td>${customer.decision_maker || ""}</td>
+
+                <td>${customer.purchase_count || 0}</td>
+
+                <td>${customer.last_purchase_date || ""}</td>
+
+            `;
+
+            tbody.appendChild(tr);
+
+        });
+
+    })
+    .catch(error => {
+
+        console.error(error);
+
+        document.getElementById("loading").innerHTML =
+        "資料讀取失敗";
+
+    });
+
+    </script>
+
+</body>
+</html>
