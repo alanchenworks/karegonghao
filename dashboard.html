@@ -211,6 +211,7 @@
 
             <div id="dashboardContent" style="display:none;">
 
+                <!--
                 <div class="kpi-grid">
 
                     <div class="kpi-card">
@@ -241,6 +242,41 @@
                     <div class="kpi-card">
                         <div class="kpi-label">首次購買人數</div>
                         <div class="kpi-value" id="firstPurchaseCount">0</div>
+                    </div>
+
+                </div>
+                -->
+
+                <div class="kpi-grid">
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">總訂單數</div>
+                        <div class="kpi-value" id="totalOrders">0</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">餐盒供應量</div>
+                        <div class="kpi-value" id="totalMeals">0</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">體驗企業數</div>
+                        <div class="kpi-value" id="trialCompanies">0</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">試吃→成交率</div>
+                        <div class="kpi-value" id="trialConversionRate">0%</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">再購意願</div>
+                        <div class="kpi-value" id="repurchaseIntent">0%</div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">加入LINE意願</div>
+                        <div class="kpi-value" id="joinLineIntent">0%</div>
                     </div>
 
                 </div>
@@ -380,11 +416,24 @@
         document.getElementById("dashboardContent").style.display = "block";
 
         document.getElementById("totalOrders").textContent = data.totalOrders;
+        /*
         document.getElementById("totalCustomers").textContent = data.totalCustomers;
         document.getElementById("repeatCustomers").textContent = data.repeatCustomers;
         document.getElementById("repurchaseRate").textContent = data.repurchaseRate + "%";
         document.getElementById("totalMeals").textContent = data.totalMeals;
         document.getElementById("firstPurchaseCount").textContent =data.firstPurchaseCount;
+        */
+        document.getElementById("trialCompanies").textContent =
+        data.trialCompanies;
+
+        document.getElementById("trialConversionRate").textContent =
+        data.trialConversionRate + "%";
+
+        document.getElementById("repurchaseIntent").textContent =
+        data.repurchaseIntent + "%";
+
+        document.getElementById("joinLineIntent").textContent =
+        data.joinLineIntent + "%";
 
         const topItems = document.getElementById("topItems");
 
