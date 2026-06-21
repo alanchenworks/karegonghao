@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 
+<!--
     <style>
 
         body {
@@ -110,6 +111,122 @@
         }
 
     </style>
+-->
+
+<style>
+
+    .dashboard-hero {
+        padding: 80px 0 40px;
+        text-align: center;
+    }
+
+    .dashboard-hero h2 {
+        font-size: 2.5rem;
+        margin-bottom: 16px;
+    }
+
+    .dashboard-hero p {
+        color: #666;
+    }
+
+    .dashboard-container {
+        max-width: 1200px;
+        margin: 0 auto 80px;
+        padding: 0 20px;
+    }
+
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        margin-bottom: 50px;
+    }
+
+    .kpi-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 36px 24px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .kpi-label {
+        color: #777;
+        font-size: 0.95rem;
+        margin-bottom: 16px;
+    }
+
+    .kpi-value {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #222;
+    }
+
+    .table-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        overflow-x: auto;
+    }
+
+    .table-card h3 {
+        margin-bottom: 24px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead {
+        background: #f8f8f8;
+    }
+
+    th,
+    td {
+        padding: 14px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+    th {
+        font-weight: 600;
+    }
+
+    tr:hover {
+        background: #fafafa;
+    }
+
+    .loading {
+        text-align: center;
+        padding: 80px 20px;
+        color: #666;
+    }
+
+    @media (max-width: 768px) {
+
+        .dashboard-hero h2 {
+            font-size: 2rem;
+        }
+
+        .kpi-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .kpi-value {
+            font-size: 2.3rem;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+
+    }
+
+</style>
 
 </head>
 
