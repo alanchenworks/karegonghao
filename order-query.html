@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>訂單查詢｜卡哩共好</title>
+
+<meta name="description" content="查詢、修改或取消訂單">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Noto Sans TC",sans-serif;
+    background:#FAF8F3;
+    color:#333;
+    line-height:1.8;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+    padding:24px;
+}
+
+.back-link{
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    width:48px;
+    height:48px;
+
+    border:1px solid #D8D2C8;
+    border-radius:50%;
+
+    text-decoration:none;
+
+    color:#3E2F24;
+
+    font-size:22px;
+
+    margin-bottom:24px;
+
+    background:#FFF;
+
+}
+
+.back-link:hover{
+    background:#F4F1EA;
+}
+
+h1{
+    color:#3E2F24;
+    margin-bottom:20px;
+    font-size:32px;
+}
+
+.notice{
+
+    margin-bottom:24px;
+
+    padding:16px 20px;
+
+    background:#F4F1EA;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#3E2F24;
+
+}
+
+.intro{
+
+    background:#FFF;
+
+    padding:24px;
+
+    border-radius:16px;
+
+    margin-bottom:32px;
+
+    color:#555;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+
+}
+
+.form-wrapper{
+
+    background:#FFF;
+
+    padding:32px;
+
+    border-radius:16px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+
+}
+
+.form-group{
+    margin-bottom:22px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#3E2F24;
+}
+
+input{
+
+    width:100%;
+
+    padding:12px 14px;
+
+    border:1px solid #D8D2C8;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    background:#FFF;
+
+}
+
+.submit-btn{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#C89B3C;
+
+    color:#FFF;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+.submit-btn:hover{
+    opacity:0.9;
+}
+
+.result-card{
+
+    display:none;
+
+    margin-top:32px;
+
+    background:#FFF;
+
+    border-radius:16px;
+
+    padding:24px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+
+}
+
+.result-item{
+
+    margin-bottom:12px;
+
+}
+
+.result-label{
+
+    font-weight:700;
+
+    color:#3E2F24;
+
+}
+
+.action-buttons{
+
+    display:flex;
+
+    gap:16px;
+
+    margin-top:24px;
+
+}
+
+.action-btn{
+
+    flex:1;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+.edit-btn{
+
+    background:#C89B3C;
+
+    color:#FFF;
+
+}
+
+.cancel-btn{
+
+    background:#C0392B;
+
+    color:#FFF;
+
+}
+
+.loading{
+
+    display:none;
+
+    text-align:center;
+
+    margin-top:20px;
+
+}
+
+@media(max-width:768px){
+
+    .container{
+        padding:20px;
+    }
+
+    .form-wrapper{
+        padding:24px;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+    .action-buttons{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <a
+        href="order-form.html"
+        class="back-link"
+        aria-label="返回上一頁"
+        title="返回上一頁"
+    >
+        ←
+    </a>
+
+    <h1>訂單查詢</h1>
+
+    <div class="notice">
+
+        請輸入訂餐時使用的手機號碼查詢目前訂單。
+
+    </div>
+
+    <div class="intro">
+
+        查詢成功後，可進行訂單修改或取消。
+
+    </div>
+
+    <div class="form-wrapper">
+
+        <div class="form-group">
+
+            <label>手機號碼</label>
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="請輸入手機號碼"
+            >
+
+        </div>
+
+        <button
+            id="queryBtn"
+            class="submit-btn"
+        >
+            查詢訂單
+        </button>
+
+        <div
+            id="loading"
+            class="loading"
+        >
+            查詢中...
+        </div>
+
+    </div>
+
+    <div
+        id="resultCard"
+        class="result-card"
+    >
+
+        <div class="result-item">
+            <span class="result-label">姓名：</span>
+            <span id="name"></span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">手機：</span>
+            <span id="phoneValue"></span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">取餐日期：</span>
+            <span id="pickupDate"></span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">取餐時間：</span>
+            <span id="pickupTime"></span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">取餐據點：</span>
+            <span id="pickupNode"></span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">經典豬排咖哩：</span>
+            <span id="porkQty"></span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">無骨雞腿咖哩：</span>
+            <span id="chickenQty"></span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">本日限定餐盒：</span>
+            <span id="dailyQty"></span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">訂單狀態：</span>
+            <span id="status"></span>
+        </div>
+
+        <div class="action-buttons">
+
+            <button
+                class="action-btn edit-btn"
+                id="editBtn"
+            >
+                修改訂單
+            </button>
+
+            <button
+                class="action-btn cancel-btn"
+                id="cancelBtn"
+            >
+                取消訂單
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const WEB_APP_URL =
+"https://script.google.com/macros/s/REPLACE_WITH_YOUR_WEBAPP_URL/exec";
+
+document
+.getElementById("queryBtn")
+.addEventListener("click", async () => {
+
+    const phone =
+    document
+    .getElementById("phone")
+    .value
+    .trim();
+
+    if(!phone){
+
+        alert("請輸入手機號碼");
+
+        return;
+
+    }
+
+    document
+    .getElementById("loading")
+    .style.display = "block";
+
+    try{
+
+        const response =
+        await fetch(
+
+            WEB_APP_URL +
+            "?action=queryOrder&phone=" +
+            encodeURIComponent(phone)
+
+        );
+
+        const result =
+        await response.json();
+
+        document
+        .getElementById("loading")
+        .style.display = "none";
+
+        if(
+            !result.order
+        ){
+
+            alert("查無進行中訂單");
+
+            return;
+
+        }
+
+        const order =
+        result.order;
+
+        document
+        .getElementById("name")
+        .textContent =
+        order.name || "";
+
+        document
+        .getElementById("phoneValue")
+        .textContent =
+        order.phone || "";
+
+        document
+        .getElementById("pickupDate")
+        .textContent =
+        order.pickup_date || "";
+
+        document
+        .getElementById("pickupTime")
+        .textContent =
+        order.pickup_time || "";
+
+        document
+        .getElementById("pickupNode")
+        .textContent =
+        order.pickup_node || "";
+
+        document
+        .getElementById("porkQty")
+        .textContent =
+        order.pork_qty || 0;
+
+        document
+        .getElementById("chickenQty")
+        .textContent =
+        order.chicken_qty || 0;
+
+        document
+        .getElementById("dailyQty")
+        .textContent =
+        order.daily_qty || 0;
+
+        document
+        .getElementById("status")
+        .textContent =
+        order.status || "";
+
+        document
+        .getElementById("resultCard")
+        .style.display = "block";
+
+    }
+    catch(error){
+
+        document
+        .getElementById("loading")
+        .style.display = "none";
+
+        alert("系統發生錯誤");
+
+        console.error(error);
+
+    }
+
+});
+
+document
+.getElementById("editBtn")
+.addEventListener("click", () => {
+
+    alert("下一階段實作");
+
+});
+
+document
+.getElementById("cancelBtn")
+.addEventListener("click", () => {
+
+    alert("下一階段實作");
+
+});
+
+</script>
+
+</body>
+</html>
