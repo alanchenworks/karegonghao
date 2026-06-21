@@ -268,40 +268,67 @@ input{
 
 }
 
-.loading-mask {
+.loading-overlay{
 
-    display: none;
+    display:none;
 
-    position: fixed;
+    position:fixed;
 
-    top: 0;
-    left: 0;
+    top:0;
+    left:0;
 
-    width: 100%;
-    height: 100%;
+    width:100%;
+    height:100%;
 
-    background: rgba(0,0,0,0.5);
+    background:rgba(0,0,0,0.65);
 
-    z-index: 9999;
+    z-index:9999;
 
-    justify-content: center;
-    align-items: center;
+    justify-content:center;
+    align-items:center;
 
 }
 
-.loading-content {
+.loading-box{
 
-    background: #FFFFFF;
+    background:#FFF;
 
-    padding: 24px 36px;
+    padding:30px;
 
-    border-radius: 12px;
+    border-radius:16px;
 
-    font-size: 18px;
+    text-align:center;
 
-    font-weight: 700;
+    min-width:220px;
 
-    color: #3E2F24;
+}
+
+.spinner{
+
+    width:48px;
+    height:48px;
+
+    border:4px solid #DDD;
+
+    border-top:4px solid #C89B3C;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+    margin:0 auto 16px;
+
+}
+
+@keyframes spin{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
 
 }
 
@@ -448,10 +475,40 @@ input{
 const WEB_APP_URL =
 "https://script.google.com/macros/s/AKfycbydkuYYK9nokEHeazKTrYQhvxjl_vmN1QaVS1PwVU-uiC0sC-C3cN4u9ZxEpL_Ax7aK/exec";
 
-function showLoading() {
+function disableAllComponents() {
 
     document
-    .getElementById("loadingMask")
+    .querySelectorAll(
+        "button,input,select,textarea"
+    )
+    .forEach(el => {
+
+        el.disabled = true;
+
+    });
+
+}
+
+function enableAllComponents() {
+
+    document
+    .querySelectorAll(
+        "button,input,select,textarea"
+    )
+    .forEach(el => {
+
+        el.disabled = false;
+
+    });
+
+}
+
+function showLoading() {
+
+    disableAllComponents();
+
+    document
+    .getElementById("loadingOverlay")
     .style.display = "flex";
 
 }
@@ -459,8 +516,10 @@ function showLoading() {
 function hideLoading() {
 
     document
-    .getElementById("loadingMask")
+    .getElementById("loadingOverlay")
     .style.display = "none";
+
+    enableAllComponents();
 
 }
 
@@ -714,10 +773,18 @@ document
 
 </script>
 
-<div id="loadingMask" class="loading-mask">
+<div id="loadingOverlay" class="loading-overlay">
 
-    <div class="loading-content">
-        處理中...
+    <div class="loading-box">
+
+        <div class="spinner"></div>
+
+        <p>
+            處理中...
+            <br>
+            請稍候
+        </p>
+
     </div>
 
 </div>
