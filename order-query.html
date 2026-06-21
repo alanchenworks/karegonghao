@@ -268,6 +268,43 @@ input{
 
 }
 
+.loading-mask {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.5);
+
+    z-index: 9999;
+
+    justify-content: center;
+    align-items: center;
+
+}
+
+.loading-content {
+
+    background: #FFFFFF;
+
+    padding: 24px 36px;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #3E2F24;
+
+}
+
 </style>
 
 </head>
@@ -411,6 +448,22 @@ input{
 const WEB_APP_URL =
 "https://script.google.com/macros/s/AKfycbydkuYYK9nokEHeazKTrYQhvxjl_vmN1QaVS1PwVU-uiC0sC-C3cN4u9ZxEpL_Ax7aK/exec";
 
+function showLoading() {
+
+    document
+    .getElementById("loadingMask")
+    .style.display = "flex";
+
+}
+
+function hideLoading() {
+
+    document
+    .getElementById("loadingMask")
+    .style.display = "none";
+
+}
+
 document
 .getElementById("queryBtn")
 .addEventListener("click", async () => {
@@ -481,6 +534,7 @@ document
     document
     .getElementById("loading")
     .style.display = "block";
+    showLoading();
 
     try{
 
@@ -499,6 +553,7 @@ document
         document
         .getElementById("loading")
         .style.display = "none";
+        hideLoading();
 
         if(
             !result.order
@@ -570,6 +625,8 @@ document
     }
     catch(error){
 
+        hideLoading();
+
         document
         .getElementById("loading")
         .style.display = "none";
@@ -605,6 +662,8 @@ document
 
     try {
 
+        showLoading();
+
         const orderId =
         document
         .getElementById("orderId")
@@ -625,6 +684,8 @@ document
 
         if (result.success) {
 
+            hideLoading();
+
             alert("訂單已取消");
 
             document
@@ -633,11 +694,15 @@ document
 
         } else {
 
+            hideLoading();
+
             alert("取消失敗");
 
         }
 
     } catch (error) {
+
+        hideLoading();
 
         console.error(error);
 
@@ -648,6 +713,14 @@ document
 });
 
 </script>
+
+<div id="loadingMask" class="loading-mask">
+
+    <div class="loading-content">
+        處理中...
+    </div>
+
+</div>
 
 </body>
 </html>
