@@ -640,17 +640,36 @@ document
         document
         .getElementById("phoneValue")
         .textContent =
-        order.phone || "";
+        "0" + (order.phone || "");
+
+        const pickupDate =
+        new Date(order.pickup_date);
 
         document
         .getElementById("pickupDate")
         .textContent =
-        order.pickup_date || "";
+        pickupDate.toLocaleDateString(
+            "zh-TW",
+            {
+                timeZone:"Asia/Taipei"
+            }
+        );
+
+        const pickupTime =
+        new Date(order.pickup_time);
 
         document
         .getElementById("pickupTime")
         .textContent =
-        order.pickup_time || "";
+        pickupTime.toLocaleTimeString(
+            "zh-TW",
+            {
+                timeZone:"Asia/Taipei",
+                hour:"2-digit",
+                minute:"2-digit",
+                hour12:false
+            }
+        );
 
         document
         .getElementById("pickupNode")
