@@ -416,6 +416,11 @@ document
     .value
     .trim();
 
+    const searchPhone =
+    phone.startsWith("0")
+    ? phone.substring(1)
+    : phone;
+
     if(!phone){
 
         alert("請輸入手機號碼");
@@ -435,7 +440,7 @@ document
 
             WEB_APP_URL +
             "?action=queryOrder&phone=" +
-            encodeURIComponent(phone)
+            encodeURIComponent(searchPhone)
 
         );
 
