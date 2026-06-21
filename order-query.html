@@ -335,6 +335,11 @@ input{
     >
 
         <div class="result-item">
+            <span class="result-label">訂單編號：</span>
+            <span id="orderId"></span>
+        </div>
+
+        <div class="result-item">
             <span class="result-label">姓名：</span>
             <span id="name"></span>
         </div>
@@ -465,6 +470,11 @@ document
         result.order;
 
         document
+        .getElementById("orderId")
+        .textContent =
+        order.order_id || "";
+
+        document
         .getElementById("name")
         .textContent =
         order.name || "";
@@ -538,9 +548,58 @@ document
 
 document
 .getElementById("cancelBtn")
-.addEventListener("click", () => {
+.addEventListener("click", async () => {
 
-    alert("下一階段實作");
+    const confirmCancel =
+    confirm("確定要取消此訂單嗎？");
+
+    if (!confirmCancel) {
+
+        return;
+
+    }
+
+    try {
+
+        const orderId =
+        document
+        .getElementById("orderId")
+        .textContent
+        .trim();
+
+        const response =
+        await fetch(
+
+            WEB_APP_URL +
+            "?action=cancelOrder&order_id=" +
+            encodeURIComponent(orderId)
+
+        );
+
+        const result =
+        await response.json();
+
+        if (result.success) {
+
+            alert("訂單已取消");
+
+            document
+            .getElementById("resultCard")
+            .style.display = "none";
+
+        } else {
+
+            alert("取消失敗");
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("系統發生錯誤");
+
+    }
 
 });
 
