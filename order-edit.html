@@ -216,6 +216,15 @@ new URLSearchParams(
 const orderId =
     urlParams.get("order_id");
 
+console.log(
+  window.location.href
+);
+
+console.log(
+  "orderId=",
+  orderId
+);
+
 let currentOrder = null;
 
 async function loadOrder() {

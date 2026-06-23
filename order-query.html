@@ -728,8 +728,10 @@ document
       currentOrder.phone;
 
     window.location.href =
-      "order-edit.html?phone=" +
-      encodeURIComponent(phone);
+      "order-edit.html?order_id=" +
+      encodeURIComponent(
+        currentOrder.order_id
+      );
 
 });
 
