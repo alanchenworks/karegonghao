@@ -721,7 +721,12 @@ document
 .getElementById("editBtn")
 .addEventListener("click", () => {
 
-    alert("下一階段實作");
+    const phone =
+      currentOrder.phone;
+
+    window.location.href =
+      "order-edit.html?phone=" +
+      encodeURIComponent(phone);
 
 });
 
