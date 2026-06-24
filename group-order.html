@@ -617,6 +617,8 @@ document
         pickup_time : form.pickup_time.value,
         pickup_node : form.pickup_node.value,
 
+        delivery_address : form.delivery_address.value,
+
         pork_qty : form.pork_curry_qty.value,
         chicken_qty : form.chicken_curry_qty.value,
         daily_qty : form.daily_special_qty.value,
@@ -627,11 +629,7 @@ document
 
         payment_method : form.payment_method.value,
 
-        remark :
-            "配送地址：" +
-            form.delivery_address.value +
-            "\n\n" +
-            form.remark.value
+        remark : form.remark.value
 
     };
 

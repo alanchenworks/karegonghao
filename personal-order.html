@@ -447,6 +447,14 @@ textarea{
                 </select>
             </div>
 
+            <div class="form-group">
+                <label>配送／取餐地址</label>
+                <textarea
+                    name="delivery_address"
+                    placeholder="請填寫完整地址或指定取餐地點"
+                ></textarea>
+            </div>
+
             <div class="section-title">
                 餐點選擇
             </div>
@@ -630,6 +638,8 @@ document
         pickup_date : form.pickup_date.value,
         pickup_time : form.pickup_time.value,
         pickup_node : form.pickup_node.value,
+
+        delivery_address : form.delivery_address.value,
 
         pork_qty : form.pork_curry_qty.value,
         chicken_qty : form.chicken_curry_qty.value,
