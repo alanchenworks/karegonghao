@@ -58,3 +58,67 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+/* ==================================================
+   QR Modal
+================================================== */
+
+function showQR(image, title)
+{
+
+    document
+        .getElementById("qrImage")
+        .src = image;
+
+    document
+        .getElementById("qrTitle")
+        .textContent = title;
+
+    document
+        .getElementById("qrModal")
+        .style.display = "flex";
+
+}
+
+function closeQR()
+{
+
+    document
+        .getElementById("qrModal")
+        .style.display = "none";
+
+}
+
+document.addEventListener(
+    "click",
+    function(event)
+    {
+
+        const modal =
+            document.getElementById("qrModal");
+
+        if (!modal)
+        {
+            return;
+        }
+
+        if (event.target === modal)
+        {
+            closeQR();
+        }
+
+    }
+);
+
+document.addEventListener(
+    "keydown",
+    function(event)
+    {
+
+        if (event.key === "Escape")
+        {
+            closeQR();
+        }
+
+    }
+);
