@@ -649,6 +649,19 @@ document
 
         const result = await response.json();
 
+        if(!result.success){
+
+            alert(JSON.stringify(result));
+            alert(result.message);
+
+            document
+            .getElementById("loadingOverlay")
+            .style.display = "none";
+
+            return;
+
+        }
+
         if(result.success){
 
             alert(
