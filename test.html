@@ -1,79 +1,37 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Survey Test</title>
+<title>Geocoding Test</title>
 </head>
 
 <body>
 
-<h2>Survey Test</h2>
-
-<form id="testForm">
-
-    <input
-        type="text"
-        id="company_name"
-        placeholder="Company Name"
-        value="TEST_COMPANY"
-    >
-
-    <br><br>
-
-    <button type="submit">
-        Submit
-    </button>
-
-</form>
+<input id="addr" value="台北市南港區東明街62號">
+<button onclick="test()">Test</button>
 
 <script>
 
-document
-.getElementById("testForm")
-.addEventListener("submit", async function(e){
+const WEB_APP_URL = "你的 Web App URL";
 
-    e.preventDefault();
+async function test(){
 
-    const data = {
+    const response = await fetch(WEB_APP_URL,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            action:"geocode_test",
+            address:document.getElementById("addr").value
+        })
+    });
 
-        company_name:
-            document.getElementById("company_name").value
+    const result = await response.json();
 
-    };
+    alert(JSON.stringify(result,null,2));
 
-    try {
-
-        const response =
-        await fetch(
-            "https://script.google.com/macros/s/AKfycbzoDDf1E3AmhOK4q6RJw6R0o8HT9crrfj2O3cEvkQZVvyl45Q27RpNA-NB7uBNplB95/exec",
-            {
-                method: "POST",
-                body: JSON.stringify(data)
-            }
-        );
-
-        const result =
-        await response.json();
-
-        console.log(result);
-
-        alert(
-            JSON.stringify(result)
-        );
-
-    }
-    catch(err){
-
-        console.error(err);
-
-        alert(
-            "ERROR\n\n" + err
-        );
-
-    }
-
-});
+}
 
 </script>
 
