@@ -542,7 +542,8 @@ blockquote {
    Footer Contact
 ================================================== */
 .footer-contact-table {
-    width: 100%;
+    /* width: 100%; */
+    width: auto;
     border-collapse: collapse;
 }
 
@@ -556,8 +557,7 @@ blockquote {
 }
 
 .footer-contact-table td:last-child {
-    /* width: 36px; */
-    width: 40px;
+    width: 36px;
     text-align: right;
 }
 
