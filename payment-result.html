@@ -501,8 +501,19 @@ if(orderId){
         customerNameElement.textContent =
             order.name || "--";
 
+        let phone =
+            String(order.phone || "");
+
+        if(
+            phone &&
+            phone.length === 9 &&
+            phone.charAt(0) !== "0"
+        ){
+            phone = "0" + phone;
+        }
+
         customerPhoneElement.textContent =
-            order.phone || "--";
+            phone || "--";
 
         pickupDateElement.textContent =
             formatDate(order.pickup_date);
