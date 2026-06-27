@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>訂單結果｜卡哩共好</title>
+
+<meta
+    name="description"
+    content="卡哩共好訂單結果"
+>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:"Noto Sans TC",sans-serif;
+
+    background:#FAF8F3;
+
+    color:#333;
+
+    line-height:1.8;
+
+}
+
+.container{
+
+    max-width:700px;
+
+    margin:auto;
+
+    padding:24px;
+
+}
+
+.back-link{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:48px;
+    height:48px;
+
+    border:1px solid #D8D2C8;
+
+    border-radius:50%;
+
+    text-decoration:none;
+
+    color:#3E2F24;
+
+    font-size:22px;
+
+    margin-bottom:24px;
+
+    background:#FFF;
+
+}
+
+.back-link:hover{
+
+    background:#F4F1EA;
+
+}
+
+h1{
+
+    color:#3E2F24;
+
+    font-size:32px;
+
+    margin-bottom:28px;
+
+}
+
+.result-card{
+
+    background:#FFF;
+
+    border-radius:16px;
+
+    padding:32px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.info-block{
+
+    padding:18px 0;
+
+    border-bottom:1px solid #ECE7DE;
+
+}
+
+.info-block:last-of-type{
+
+    border-bottom:none;
+
+}
+
+.info-title{
+
+    font-size:15px;
+
+    color:#777;
+
+    margin-bottom:6px;
+
+}
+
+.info-value{
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:#3E2F24;
+
+}
+
+.message{
+
+    margin-top:30px;
+
+    padding-top:26px;
+
+    border-top:1px solid #ECE7DE;
+
+    text-align:center;
+
+    color:#555;
+
+}
+
+.action-buttons{
+
+    margin-top:36px;
+
+}
+
+.action-buttons a{
+
+    display:block;
+
+    width:100%;
+
+    padding:16px;
+
+    margin-bottom:16px;
+
+    background:#C89B3C;
+
+    color:#FFF;
+
+    text-decoration:none;
+
+    text-align:center;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    border-radius:12px;
+
+    transition:.3s;
+
+}
+
+.action-buttons a:hover{
+
+    opacity:.9;
+
+}
+
+.action-buttons a.secondary{
+
+    background:#3E2F24;
+
+}
+
+@media(max-width:768px){
+
+    .container{
+
+        padding:20px;
+
+    }
+
+    .result-card{
+
+        padding:24px;
+
+    }
+
+    h1{
+
+        font-size:28px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <a
+        href="order-form.html"
+        class="back-link"
+        aria-label="返回訂餐首頁"
+        title="返回訂餐首頁"
+    >
+        ←
+    </a>
+
+    <h1>
+        訂單已成立
+    </h1>
+
+    <div class="result-card">
+
+        <div class="info-block">
+
+            <div class="info-title">
+                訂單編號
+            </div>
+
+            <div
+                class="info-value"
+                id="orderId"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div class="info-block">
+
+            <div class="info-title">
+                付款方式
+            </div>
+
+            <div
+                class="info-value"
+                id="paymentMethod"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div class="info-block">
+
+            <div class="info-title">
+                付款狀態
+            </div>
+
+            <div
+                class="info-value"
+                id="paymentStatus"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div class="info-block">
+
+            <div class="info-title">
+                取餐日期
+            </div>
+
+            <div
+                class="info-value"
+                id="pickupDate"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div class="info-block">
+
+            <div class="info-title">
+                取餐時間
+            </div>
+
+            <div
+                class="info-value"
+                id="pickupTime"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div class="info-block">
+
+            <div class="info-title">
+                取餐據點
+            </div>
+
+            <div
+                class="info-value"
+                id="pickupNode"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div
+            class="message"
+            id="resultMessage"
+        >
+            謝謝您的訂購！
+        </div>
+
+        <div class="action-buttons">
+
+            <a
+                href="order-form.html"
+            >
+                返回訂餐首頁
+            </a>
+
+            <a
+                href="order-query.html"
+                class="secondary"
+            >
+                查詢訂單
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const result =
+    params.get("result");
+
+const orderId =
+    params.get("order_id");
+
+const orderIdElement =
+    document.getElementById("orderId");
+
+const paymentMethodElement =
+    document.getElementById("paymentMethod");
+
+const paymentStatusElement =
+    document.getElementById("paymentStatus");
+
+const resultMessageElement =
+    document.getElementById("resultMessage");
+
+if(orderId){
+
+    orderIdElement.textContent =
+        orderId;
+
+}
+
+if(result==="success"){
+
+    paymentMethodElement.textContent =
+        "LINE Pay";
+
+    paymentStatusElement.textContent =
+        "已付款";
+
+    resultMessageElement.textContent =
+        "付款完成，謝謝您的訂購！";
+
+}
+else if(result==="failed"){
+
+    paymentMethodElement.textContent =
+        "LINE Pay";
+
+    paymentStatusElement.textContent =
+        "付款失敗";
+
+    resultMessageElement.textContent =
+        "付款未完成，請稍後再試。";
+
+}
+else{
+
+    paymentMethodElement.textContent =
+        "現金";
+
+    paymentStatusElement.textContent =
+        "等待付款";
+
+    resultMessageElement.textContent =
+        "訂單已成立，請於取餐時完成付款。";
+
+}
+
+</script>
+
+</body>
+
+</html>

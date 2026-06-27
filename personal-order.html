@@ -493,7 +493,7 @@ textarea{
 
             <div class="menu-card">
 
-                <h3>🍛 本日限定餐盒</h3>
+                <h3>🍛 皮蛋肉沫咖哩</h3>
 
                 <label>數量</label>
 
@@ -513,6 +513,8 @@ textarea{
 
             <div class="checkbox-group">
 
+              <div style="display:none;">
+
                 <label class="checkbox-item">
                     <input type="checkbox" name="extra_rice">
                     加飯
@@ -522,6 +524,8 @@ textarea{
                     <input type="checkbox" name="no_spicy">
                     不辣
                 </label>
+
+              </div>
 
                 <label class="checkbox-item">
                     <input type="checkbox" name="need_cutlery">
@@ -684,6 +688,15 @@ document
         }
 
         if(result.success){
+
+            if(result.payment_url){
+
+                window.location =
+                    result.payment_url;
+
+                return;
+
+            }
 
             alert(
                 "訂單送出成功\n\n訂單編號：" +
