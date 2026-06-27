@@ -259,6 +259,36 @@ h1{
         <div class="info-block">
 
             <div class="info-title">
+                姓名
+            </div>
+
+            <div
+                class="info-value"
+                id="customerName"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div class="info-block">
+
+            <div class="info-title">
+                電話
+            </div>
+
+            <div
+                class="info-value"
+                id="customerPhone"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div class="info-block">
+
+            <div class="info-title">
                 付款方式
             </div>
 
@@ -331,6 +361,36 @@ h1{
 
         </div>
 
+        <div class="info-block">
+
+            <div class="info-title">
+                餐點內容
+            </div>
+
+            <div
+                class="info-value"
+                id="orderItems"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div class="info-block">
+
+            <div class="info-title">
+                備註
+            </div>
+
+            <div
+                class="info-value"
+                id="remark"
+            >
+                --
+            </div>
+
+        </div>
+
         <div
             class="message"
             id="resultMessage"
@@ -375,6 +435,27 @@ const orderId =
 const orderIdElement =
     document.getElementById("orderId");
 
+const customerNameElement =
+    document.getElementById("customerName");
+
+const customerPhoneElement =
+    document.getElementById("customerPhone");
+
+const pickupDateElement =
+    document.getElementById("pickupDate");
+
+const pickupTimeElement =
+    document.getElementById("pickupTime");
+
+const pickupNodeElement =
+    document.getElementById("pickupNode");
+
+const orderItemsElement =
+    document.getElementById("orderItems");
+
+const remarkElement =
+    document.getElementById("remark");
+
 const paymentMethodElement =
     document.getElementById("paymentMethod");
 
@@ -388,6 +469,94 @@ if(orderId){
 
     orderIdElement.textContent =
         orderId;
+
+}
+
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbydkuYYK9nokEHeazKTrYQhvxjl_vmN1QaVS1PwVU-uiC0sC-C3cN4u9ZxEpL_Ax7aK/exec";
+
+if(orderId){
+
+    fetch(
+        API_URL
+        + "?action=queryOrderById"
+        + "&order_id="
+        + encodeURIComponent(orderId)
+    )
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        if(
+            !data.success ||
+            !data.order
+        ){
+            return;
+        }
+
+        const order =
+            data.order;
+
+        customerNameElement.textContent =
+            order.name || "--";
+
+        customerPhoneElement.textContent =
+            order.phone || "--";
+
+        pickupDateElement.textContent =
+            order.pickup_date || "--";
+
+        pickupTimeElement.textContent =
+            order.pickup_time || "--";
+
+        pickupNodeElement.textContent =
+            order.pickup_node || "--";
+
+        remarkElement.textContent =
+            order.remark || "--";
+
+        const items = [];
+
+        if(Number(order.pork_qty) > 0){
+
+            items.push(
+                "經典豬排咖哩 × "
+                + order.pork_qty
+            );
+
+        }
+
+        if(Number(order.chicken_qty) > 0){
+
+            items.push(
+                "無骨雞腿咖哩 × "
+                + order.chicken_qty
+            );
+
+        }
+
+        if(Number(order.daily_qty) > 0){
+
+            items.push(
+                "皮蛋肉沫咖哩 × "
+                + order.daily_qty
+            );
+
+        }
+
+        orderItemsElement.innerHTML =
+            items.length
+                ? items.join("<br>")
+                : "--";
+
+    })
+
+    .catch(error=>{
+
+        console.error(error);
+
+    });
 
 }
 
