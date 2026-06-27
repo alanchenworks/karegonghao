@@ -696,16 +696,11 @@ document
 
             }
 
-            alert(
-                "訂單送出成功\n\n訂單編號：" +
-                result.order_id
-            );
+            window.location =
+                "payment-result.html?order_id="
+                + encodeURIComponent(result.order_id);
 
-            form.reset();
-
-            document
-            .getElementById("loadingOverlay")
-            .style.display = "none";
+            return;
 
         } else {
 
