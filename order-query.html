@@ -443,7 +443,7 @@ input{
             <span id="pickupNode"></span>
         </div>
 
-        <div class="result-item">
+        <div class="result-item" id="mealRow">
             <span class="result-label">餐點內容：</span>
             <div id="mealContent"></div>
         </div>
@@ -467,12 +467,12 @@ input{
             <span id="remark"></span>
         </div>
 
-        <div class="result-item">
+        <div class="result-item" id="paymentMethodRow">
             <span class="result-label">付款方式：</span>
             <span id="paymentMethod"></span>
         </div>
 
-        <div class="result-item">
+        <div class="result-item" id="paymentStatusRow">
             <span class="result-label">付款狀態：</span>
             <span id="paymentStatus"></span>
         </div>
@@ -706,6 +706,17 @@ document
             document.getElementById("contactName").textContent=
                 order.contact_name || "";
 
+        }
+
+        if(order.order_type==="enterprise"){
+            document.getElementById("mealRow").style.display="none";
+            document.getElementById("paymentMethodRow").style.display="none";
+            document.getElementById("paymentStatusRow").style.display="none";
+        }
+        else{
+            document.getElementById("mealRow").style.display="";
+            document.getElementById("paymentMethodRow").style.display="";
+            document.getElementById("paymentStatusRow").style.display="";
         }
 
         document
