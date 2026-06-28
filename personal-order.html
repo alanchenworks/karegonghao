@@ -459,6 +459,7 @@ textarea{
                     value="0"
                     class="qty-input"
                     name="pork_curry_qty"
+                    oninput="updateOrderSummary()"
                 >
 
             </div>
@@ -475,6 +476,7 @@ textarea{
                     value="0"
                     class="qty-input"
                     name="chicken_curry_qty"
+                    oninput="updateOrderSummary()"
                 >
 
             </div>
@@ -491,6 +493,7 @@ textarea{
                     value="0"
                     class="qty-input"
                     name="daily_special_qty"
+                    oninput="updateOrderSummary()"
                 >
 
             </div>
@@ -611,6 +614,68 @@ textarea{
 
 const WEB_APP_URL =
 "https://script.google.com/macros/s/AKfycbydkuYYK9nokEHeazKTrYQhvxjl_vmN1QaVS1PwVU-uiC0sC-C3cN4u9ZxEpL_Ax7aK/exec";
+
+const PRICE = {
+
+    pork: 149,
+
+    chicken: 159,
+
+    daily: 139
+
+};
+
+const FREE_DELIVERY_QTY = 5;
+
+function updateOrderSummary() {
+
+    const form =
+        document.getElementById("personalOrderForm");
+
+    const porkQty =
+        Number(form.pork_curry_qty.value) || 0;
+
+    const chickenQty =
+        Number(form.chicken_curry_qty.value) || 0;
+
+    const dailyQty =
+        Number(form.daily_special_qty.value) || 0;
+
+    const totalQty =
+        porkQty +
+        chickenQty +
+        dailyQty;
+
+    const totalAmount =
+        porkQty * PRICE.pork +
+        chickenQty * PRICE.chicken +
+        dailyQty * PRICE.daily;
+
+    document.getElementById("totalQty").textContent =
+        totalQty;
+
+    document.getElementById("totalAmount").textContent =
+        "NT$" + totalAmount.toLocaleString();
+
+    if (totalQty >= FREE_DELIVERY_QTY) {
+
+        document.getElementById("deliveryAddressGroup")
+            .style.display = "block";
+
+    }
+    else {
+
+        document.getElementById("deliveryAddressGroup")
+            .style.display = "none";
+
+        form.delivery_address.value = "";
+
+        document.getElementById("distanceResult")
+            .textContent = "";
+
+    }
+
+}
 
 document
 .getElementById("personalOrderForm")
