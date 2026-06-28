@@ -439,10 +439,8 @@ textarea{
 
             <div class="form-group">
                 <label>取餐據點 <span class="required">*</span></label>
-                <select name="pickup_node" required>
-                    <option value="">請選擇</option>
-                    <option>亞東醫院</option>
-                </select>
+                <div class="readonly-value">亞東醫院</div>
+                <input type="hidden" name="pickup_node" value="亞東醫院">
             </div>
 
             <div class="form-group">
@@ -459,7 +457,7 @@ textarea{
 
             <div class="menu-card">
 
-                <h3>🍛 經典豬排咖哩</h3>
+                <h3>🍛 經典豬排咖哩　　　NT$149</h3>
 
                 <label>數量</label>
 
@@ -475,7 +473,7 @@ textarea{
 
             <div class="menu-card">
 
-                <h3>🍛 無骨雞腿咖哩</h3>
+                <h3>🍛 無骨雞腿咖哩　　　NT$159</h3>
 
                 <label>數量</label>
 
@@ -491,7 +489,7 @@ textarea{
 
             <div class="menu-card">
 
-                <h3>🍛 皮蛋肉沫咖哩</h3>
+                <h3>🍛 皮蛋肉沫咖哩　　　NT$139</h3>
 
                 <label>數量</label>
 
@@ -537,17 +535,8 @@ textarea{
             </div>
 
             <div class="form-group">
-
-                <select name="payment_method">
-
-                    <option value="">請選擇</option>
-
-                    <option>現金</option>
-
-                    <option>LINE Pay</option>
-
-                </select>
-
+                <div class="readonly-value">現金</div>
+                <input type="hidden" name="payment_method" value="現金">
             </div>
 
             <div class="section-title">
