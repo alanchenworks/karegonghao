@@ -443,14 +443,6 @@ textarea{
                 <input type="hidden" name="pickup_node" value="亞東醫院">
             </div>
 
-            <div class="form-group">
-                <label>配送／取餐地址</label>
-                <textarea
-                    name="delivery_address"
-                    placeholder="請填寫完整地址或指定取餐地點"
-                ></textarea>
-            </div>
-
             <div class="section-title">
                 餐點選擇
             </div>
@@ -500,6 +492,53 @@ textarea{
                     class="qty-input"
                     name="daily_special_qty"
                 >
+
+            </div>
+
+            <div class="menu-card">
+
+                <h3>總計</h3>
+
+                <p>
+                    餐點數量：
+                    <strong id="totalQty">0</strong>
+                    份
+                </p>
+
+                <p>
+                    總金額：
+                    <strong id="totalAmount">NT$0</strong>
+                </p>
+
+            </div>
+
+            <div
+                id="deliveryAddressGroup"
+                style="display:none;"
+            >
+
+                <div class="section-title">
+                    配送資訊
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        配送地址
+                        <span class="required">*</span>
+                    </label>
+
+                    <textarea
+                        name="delivery_address"
+                        placeholder="請填寫完整配送地址"
+                    ></textarea>
+
+                    <small
+                        id="distanceResult"
+                    >
+                    </small>
+
+                </div>
 
             </div>
 
