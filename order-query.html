@@ -404,8 +404,23 @@ input{
         </div>
 
         <div class="result-item">
+            <span class="result-label">訂單類型：</span>
+            <span id="orderType"></span>
+        </div>
+
+        <div class="result-item" id="nameRow">
             <span class="result-label">姓名：</span>
             <span id="name"></span>
+        </div>
+
+        <div class="result-item" id="companyRow" style="display:none;">
+            <span class="result-label">公司名稱：</span>
+            <span id="companyName"></span>
+        </div>
+
+        <div class="result-item" id="contactRow" style="display:none;">
+            <span class="result-label">聯絡人：</span>
+            <span id="contactName"></span>
         </div>
 
         <div class="result-item">
@@ -429,23 +444,37 @@ input{
         </div>
 
         <div class="result-item">
-            <span class="result-label">經典豬排咖哩：</span>
-            <span id="porkQty"></span>
-        </div>
-
-        <div class="result-item">
-            <span class="result-label">無骨雞腿咖哩：</span>
-            <span id="chickenQty"></span>
-        </div>
-
-        <div class="result-item">
-            <span class="result-label">本日限定餐盒：</span>
-            <span id="dailyQty"></span>
+            <span class="result-label">餐點內容：</span>
+            <div id="mealContent"></div>
         </div>
 
         <div class="result-item">
             <span class="result-label">訂單狀態：</span>
             <span id="status"></span>
+        </div>
+
+        <div
+            class="result-item"
+            id="cutleryRow"
+            style="display:none;"
+        >
+            <span class="result-label">餐具需求：</span>
+            <span>需要餐具</span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">備註：</span>
+            <span id="remark"></span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">付款方式：</span>
+            <span id="paymentMethod"></span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">付款狀態：</span>
+            <span id="paymentStatus"></span>
         </div>
 
         <div class="action-buttons">
@@ -534,6 +563,19 @@ document
     document
     .getElementById("orderId")
     .textContent = "";
+
+    document.getElementById("orderType").textContent="";
+    document.getElementById("companyName").textContent="";
+    document.getElementById("contactName").textContent="";
+    document.getElementById("mealContent").innerHTML="";
+    document.getElementById("remark").textContent="";
+    document.getElementById("paymentMethod").textContent="";
+    document.getElementById("paymentStatus").textContent="";
+
+    document.getElementById("companyRow").style.display="none";
+    document.getElementById("contactRow").style.display="none";
+    document.getElementById("nameRow").style.display="";
+    document.getElementById("cutleryRow").style.display="none";
 
     document
     .getElementById("name")
@@ -635,10 +677,36 @@ document
         .textContent =
         order.order_id || "";
 
-        document
-        .getElementById("name")
-        .textContent =
-        order.name || "";
+        const typeMap={
+            personal:"個人訂餐",
+            group:"團體訂餐",
+            enterprise:"企業體驗"
+        };
+
+        document.getElementById("orderType").textContent=
+        typeMap[order.order_type] || order.order_type;
+
+        if(order.order_type==="personal"){
+
+            document.getElementById("name").textContent=
+                order.name || "";
+
+        }
+        else{
+
+            document.getElementById("nameRow").style.display="none";
+
+            document.getElementById("companyRow").style.display="";
+
+            document.getElementById("contactRow").style.display="";
+
+            document.getElementById("companyName").textContent=
+                order.company_name || "";
+
+            document.getElementById("contactName").textContent=
+                order.contact_name || "";
+
+        }
 
         document
         .getElementById("phoneValue")
@@ -679,25 +747,64 @@ document
         .textContent =
         order.pickup_node || "";
 
-        document
-        .getElementById("porkQty")
-        .textContent =
-        order.pork_qty || 0;
+        let meals=[];
+
+        if(Number(order.pork_qty)>0){
+
+            meals.push(
+                "經典豬排咖哩 × " + order.pork_qty
+            );
+
+        }
+
+        if(Number(order.chicken_qty)>0){
+
+            meals.push(
+                "無骨雞腿咖哩 × " + order.chicken_qty
+            );
+
+        }
+
+        if(Number(order.daily_qty)>0){
+
+            meals.push(
+                "皮蛋肉沫咖哩 × " + order.daily_qty
+            );
+
+        }
 
         document
-        .getElementById("chickenQty")
-        .textContent =
-        order.chicken_qty || 0;
-
-        document
-        .getElementById("dailyQty")
-        .textContent =
-        order.daily_qty || 0;
+        .getElementById("mealContent")
+        .innerHTML=
+        meals.join("<br>");
 
         document
         .getElementById("status")
         .textContent =
         order.status || "";
+
+        if(order.need_cutlery){
+
+            document
+            .getElementById("cutleryRow")
+            .style.display="";
+
+        }
+
+        document
+        .getElementById("remark")
+        .textContent=
+        order.remark || "暫無特殊需求。";
+
+        document
+        .getElementById("paymentMethod")
+        .textContent=
+        order.payment_method || "";
+
+        document
+        .getElementById("paymentStatus")
+        .textContent=
+        order.payment_status || "";
 
         document
         .getElementById("resultCard")
