@@ -603,7 +603,7 @@ const FREE_DELIVERY_QTY = 5;
 function updateOrderSummary() {
 
     const form =
-        document.getElementById("personalOrderForm");
+        document.getElementById("groupOrderForm");
 
     const porkQty =
         Number(form.pork_curry_qty.value) || 0;
@@ -793,16 +793,20 @@ document
 
         if(result.success){
 
-            alert(
-                "團購訂單送出成功\n\n訂單編號：" +
-                result.order_id
-            );
+            if(result.payment_url){
 
-            form.reset();
+                window.location =
+                    result.payment_url;
 
-            document
-            .getElementById("loadingOverlay")
-            .style.display = "none";
+                return;
+
+            }
+
+            window.location =
+                "payment-result.html?order_id="
+                + encodeURIComponent(result.order_id);
+
+            return;
 
         } else {
 
