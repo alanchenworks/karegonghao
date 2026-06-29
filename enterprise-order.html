@@ -443,6 +443,8 @@ textarea{
                 <input type="hidden" name="pickup_node" value="亞東醫院">
             </div>
 
+        <div style="display:none;">
+
             <div class="section-title">
                 餐點選擇
             </div>
@@ -459,7 +461,6 @@ textarea{
                     value="0"
                     class="qty-input"
                     name="pork_curry_qty"
-                    oninput="updateOrderSummary()"
                 >
 
             </div>
@@ -476,7 +477,6 @@ textarea{
                     value="0"
                     class="qty-input"
                     name="chicken_curry_qty"
-                    oninput="updateOrderSummary()"
                 >
 
             </div>
@@ -493,7 +493,6 @@ textarea{
                     value="0"
                     class="qty-input"
                     name="daily_special_qty"
-                    oninput="updateOrderSummary()"
                 >
 
             </div>
@@ -515,9 +514,11 @@ textarea{
 
             </div>
 
+        </div>
+
             <div
                 id="deliveryAddressGroup"
-                style="display:none;"
+                style="display:block;"
             >
 
                 <div class="section-title">
@@ -545,6 +546,8 @@ textarea{
 
             </div>
 
+        <div style="display:none;">
+
             <div class="section-title">
                 付款方式
             </div>
@@ -555,6 +558,8 @@ textarea{
                 <input type="hidden" name="payment_method" value="現金">
 
             </div>
+
+        </div>
 
             <div class="section-title">
                 備註
@@ -698,6 +703,7 @@ document
             Number(form.chicken_curry_qty.value || 0) +
             Number(form.daily_special_qty.value || 0);
 
+        /*
         if (totalQty === 0) {
 
             alert("請至少選擇一份餐點。");
@@ -705,8 +711,9 @@ document
             return false;
 
         }
+        */
 
-        if (totalQty >= FREE_DELIVERY_QTY) {
+        /* if (totalQty >= FREE_DELIVERY_QTY) { */
 
             if (form.delivery_address.value.trim() === "") {
 
@@ -718,7 +725,7 @@ document
 
             }
 
-        }
+        /* } */
 
         return true;
 
@@ -751,9 +758,15 @@ document
 
         delivery_address : form.delivery_address.value,
 
+        /*
         pork_qty : form.pork_curry_qty.value,
         chicken_qty : form.chicken_curry_qty.value,
         daily_qty : form.daily_special_qty.value,
+        */
+
+        pork_qty : 1,
+        chicken_qty : 1,
+        daily_qty : 1,
 
         extra_rice : false,
         no_spicy : false,
