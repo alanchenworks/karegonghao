@@ -716,6 +716,45 @@ document
         return;
     }
 
+    async function validateOrder(form) {
+
+        const totalQty =
+            Number(form.pork_curry_qty.value || 0) +
+            Number(form.chicken_curry_qty.value || 0) +
+            Number(form.daily_special_qty.value || 0);
+
+        if (totalQty === 0) {
+
+            alert("請至少選擇一份餐點。");
+
+            return false;
+
+        }
+
+        if (totalQty >= FREE_DELIVERY_QTY) {
+
+            if (form.delivery_address.value.trim() === "") {
+
+                alert("請輸入配送地址。");
+
+                form.delivery_address.focus();
+
+                return false;
+
+            }
+
+        }
+
+        return true;
+
+    }
+
+    if (!(await validateOrder(form))) {
+
+        return;
+
+    }
+
     const data = {
 
         order_type : "personal",
