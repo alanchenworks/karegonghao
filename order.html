@@ -235,12 +235,29 @@
             </div>
             <div>
                 <h3>聯絡方式</h3>
-                <ul>
-                    <li>LINE</li>
-                    <li>Email</li>
-                    <li>Instagram</li>
-                    <li>Facebook</li>
-                </ul>
+
+                <table class="footer-contact-table">
+                    <!-- LINE -->
+                    <tr>
+                        <td><a href="#" target="_blank">LINE</a></td>
+                        <td><a href="#" class="qr-link" onclick="showQR('images/qr/line_qrcode.png','LINE'); return false;">QR</a></td>
+                    </tr>
+                    <!-- Email -->
+                    <tr>
+                        <td><a href="mailto:karegonghao@gmail.com">Email</a></td>
+                        <td></td>
+                    </tr>
+                    <!-- Instagram -->
+                    <tr>
+                        <td><a href="https://www.instagram.com/karegonghao/" target="_blank">Instagram</a></td>
+                        <td><a href="#" class="qr-link" onclick="showQR('images/qr/instagram_qrcode.jpeg','Instagram'); return false;">QR</a></td>
+                    </tr>
+                    <!-- Facebook -->
+                    <tr>
+                        <td><a href="https://www.facebook.com/karegonghao/" target="_blank">Facebook</a></td>
+                        <td><a href="#" class="qr-link" onclick="showQR('images/qr/facebook_qrcode.jpeg','Facebook'); return false;">QR</a></td>
+                    </tr>
+                </table>
             </div>
             <div>
                 <h3>合作方向</h3>
@@ -254,6 +271,18 @@
         </div>
         <div class="copyright">© 2026 卡哩共好 KARE NODE SYSTEM</div>
     </footer>
+
+    <div id="qrModal" class="qr-modal">
+        <div class="qr-modal-content">
+            <button class="qr-close" onclick="closeQR()">
+                ×
+            </button>
+            <h3 id="qrTitle">
+
+            </h3>
+            <img id="qrImage" src="" alt="QR Code">
+        </div>
+    </div>
 
     <script src="js/menu.js"></script>
 
