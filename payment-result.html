@@ -437,6 +437,24 @@ h1{
 
         <div
             class="info-block"
+            id="totalAmountBlock"
+        >
+
+            <div class="info-title">
+                總金額
+            </div>
+
+            <div
+                class="info-value"
+                id="totalAmount"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div
+            class="info-block"
             id="needCutleryBlock"
         >
 
@@ -551,6 +569,12 @@ const needCutleryElement =
 const orderStatusElement =
     document.getElementById("orderStatus");
 
+const totalAmountElement =
+    document.getElementById("totalAmount");
+
+const totalAmountBlock =
+    document.getElementById("totalAmountBlock");
+
 const customerPhoneElement =
     document.getElementById("customerPhone");
 
@@ -611,6 +635,15 @@ if(orderId){
         const order =
             data.order;
 
+        if (
+            order.order_type === "group" ||
+            order.order_type === "enterprise"
+        ) {
+
+            needCutleryBlock.style.display = "none";
+
+        }
+
         if (order.order_type === "enterprise") {
 
             document.getElementById("paymentMethod")
@@ -621,9 +654,18 @@ if(orderId){
 
             resultMessageElement.style.display = "none";
 
-            document.getElementById("needCutleryBlock")
-                .style.display = "none";
+            /*
+            if (
+                order.order_type === "group" ||
+                order.order_type === "enterprise"
+            ) {
 
+                needCutleryBlock.style.display = "none";
+
+            }
+            */
+
+            /*
             document.getElementById("pageTitle")
                 .textContent = "企業體驗";
 
@@ -632,6 +674,9 @@ if(orderId){
 
             document.getElementById("orderTypeBlock")
                 .style.display = "none";
+            */
+
+            totalAmountBlock.style.display = "none";
 
         }
 
@@ -646,6 +691,27 @@ if(orderId){
             customerNameElement.textContent =
                 order.company_name || "--";
 
+            contactNameElement.parentElement.style.display =
+                "";
+
+            contactNameElement.textContent =
+                order.contact_name || "--";
+
+        }
+        else if (order.order_type === "group") {
+
+            orderTypeElement.textContent =
+                "團體訂餐";
+
+            customerNameTitleElement.textContent =
+                "公司名稱";
+
+            customerNameElement.textContent =
+                order.company_name || "--";
+
+            contactNameElement.parentElement.style.display =
+                "";
+
             contactNameElement.textContent =
                 order.contact_name || "--";
 
@@ -653,14 +719,47 @@ if(orderId){
         else {
 
             orderTypeElement.textContent =
-                order.order_type || "--";
+                "個人訂餐";
 
-        }
-
-        if (order.order_type !== "enterprise") {
+            customerNameTitleElement.textContent =
+                "姓名";
 
             customerNameElement.textContent =
                 order.name || "--";
+
+            contactNameElement.parentElement.style.display =
+                "none";
+
+        }
+
+        document.getElementById("orderTypeBlock")
+            .style.display = "none";
+
+        if (order.order_type === "enterprise") {
+
+            document.getElementById("pageTitle")
+                .textContent = "企業體驗";
+
+            document.getElementById("pageSubTitle")
+                .textContent = "訂單已成立";
+
+        }
+        else if (order.order_type === "group") {
+
+            document.getElementById("pageTitle")
+                .textContent = "團體訂餐";
+
+            document.getElementById("pageSubTitle")
+                .textContent = "訂單已成立";
+
+        }
+        else {
+
+            document.getElementById("pageTitle")
+                .textContent = "個人訂餐";
+
+            document.getElementById("pageSubTitle")
+                .textContent = "訂單已成立";
 
         }
 
@@ -753,6 +852,43 @@ if(orderId){
             items.length
                 ? items.join("<br>")
                 : "--";
+
+        const totalAmount =
+            Number(order.total_amount || 0);
+
+        totalAmountElement.textContent =
+            "NT$" + totalAmount;
+
+        const totalQty =
+            Number(order.pork_qty || 0) +
+            Number(order.chicken_qty || 0) +
+            Number(order.daily_qty || 0);
+
+        const deliveryAddressBlock =
+            document.getElementById("deliveryAddressBlock");
+
+        if (order.order_type === "enterprise") {
+
+            deliveryAddressBlock.style.display =
+                "block";
+
+        }
+        else {
+
+            if (totalQty >= 5) {
+
+                deliveryAddressBlock.style.display =
+                    "block";
+
+            }
+            else {
+
+                deliveryAddressBlock.style.display =
+                    "none";
+
+            }
+
+        }
 
     })
 
