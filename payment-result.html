@@ -235,9 +235,11 @@ h1{
         ←
     </a>
 
-    <h1>
+    <h1 id="pageTitle">
         訂單已成立
     </h1>
+
+    <h2 id="pageSubTitle"></h2>
 
     <div class="result-card">
 
@@ -618,6 +620,15 @@ if(orderId){
                 .parentElement.style.display = "none";
 
             resultMessageElement.style.display = "none";
+
+            document.getElementById("needCutleryBlock")
+                .style.display = "none";
+
+            document.getElementById("pageTitle")
+                .textContent = "企業體驗";
+
+            document.getElementById("pageSubTitle")
+                .textContent = "訂單已成立";
 
         }
 
