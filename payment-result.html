@@ -630,6 +630,9 @@ if(orderId){
             document.getElementById("pageSubTitle")
                 .textContent = "訂單已成立";
 
+            document.getElementById("orderTypeBlock")
+                .style.display = "none";
+
         }
 
         if (order.order_type === "enterprise") {
@@ -693,8 +696,29 @@ if(orderId){
         needCutleryElement.textContent =
             order.need_cutlery ? "是" : "否";
 
-        orderStatusElement.textContent =
-            order.status || "--";
+        switch (order.status) {
+
+            case "Pending":
+                orderStatusElement.textContent = "待確認";
+                break;
+
+            case "Confirmed":
+                orderStatusElement.textContent = "已確認";
+                break;
+
+            case "Completed":
+                orderStatusElement.textContent = "已完成";
+                break;
+
+            case "Cancelled":
+                orderStatusElement.textContent = "已取消";
+                break;
+
+            default:
+                orderStatusElement.textContent =
+                    order.status || "--";
+
+        }
 
         const items = [];
 
