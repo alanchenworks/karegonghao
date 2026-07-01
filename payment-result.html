@@ -854,7 +854,9 @@ if(orderId){
                 : "--";
 
         const totalAmount =
-            Number(order.total_amount || 0);
+            Number(order.pork_qty || 0) * 149 +
+            Number(order.chicken_qty || 0) * 169 +
+            Number(order.daily_qty || 0) * 139;
 
         totalAmountElement.textContent =
             "NT$" + totalAmount;
