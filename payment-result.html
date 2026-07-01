@@ -256,9 +256,30 @@ h1{
 
         </div>
 
-        <div class="info-block">
+        <div
+            class="info-block"
+            id="orderTypeBlock"
+        >
 
             <div class="info-title">
+                訂單類型
+            </div>
+
+            <div
+                class="info-value"
+                id="orderType"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div class="info-block">
+
+            <div
+                class="info-title"
+                id="customerNameTitle"
+            >
                 姓名
             </div>
 
@@ -280,6 +301,24 @@ h1{
             <div
                 class="info-value"
                 id="customerPhone"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div
+            class="info-block"
+            id="contactNameBlock"
+        >
+
+            <div class="info-title">
+                聯絡人
+            </div>
+
+            <div
+                class="info-value"
+                id="contactName"
             >
                 --
             </div>
@@ -361,6 +400,24 @@ h1{
 
         </div>
 
+        <div
+            class="info-block"
+            id="deliveryAddressBlock"
+        >
+
+            <div class="info-title">
+                配送地址
+            </div>
+
+            <div
+                class="info-value"
+                id="deliveryAddress"
+            >
+                --
+            </div>
+
+        </div>
+
         <div class="info-block">
 
             <div class="info-title">
@@ -370,6 +427,42 @@ h1{
             <div
                 class="info-value"
                 id="orderItems"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div
+            class="info-block"
+            id="needCutleryBlock"
+        >
+
+            <div class="info-title">
+                餐具
+            </div>
+
+            <div
+                class="info-value"
+                id="needCutlery"
+            >
+                --
+            </div>
+
+        </div>
+
+        <div
+            class="info-block"
+            id="statusBlock"
+        >
+
+            <div class="info-title">
+                訂單狀態
+            </div>
+
+            <div
+                class="info-value"
+                id="orderStatus"
             >
                 --
             </div>
@@ -438,6 +531,24 @@ const orderIdElement =
 const customerNameElement =
     document.getElementById("customerName");
 
+const customerNameTitleElement =
+    document.getElementById("customerNameTitle");
+
+const orderTypeElement =
+    document.getElementById("orderType");
+
+const contactNameElement =
+    document.getElementById("contactName");
+
+const deliveryAddressElement =
+    document.getElementById("deliveryAddress");
+
+const needCutleryElement =
+    document.getElementById("needCutlery");
+
+const orderStatusElement =
+    document.getElementById("orderStatus");
+
 const customerPhoneElement =
     document.getElementById("customerPhone");
 
@@ -498,8 +609,46 @@ if(orderId){
         const order =
             data.order;
 
-        customerNameElement.textContent =
-            order.name || "--";
+        if (order.order_type === "enterprise") {
+
+            document.getElementById("paymentMethod")
+                .parentElement.style.display = "none";
+
+            document.getElementById("paymentStatus")
+                .parentElement.style.display = "none";
+
+            resultMessageElement.style.display = "none";
+
+        }
+
+        if (order.order_type === "enterprise") {
+
+            orderTypeElement.textContent =
+                "企業體驗";
+
+            customerNameTitleElement.textContent =
+                "公司名稱";
+
+            customerNameElement.textContent =
+                order.company_name || "--";
+
+            contactNameElement.textContent =
+                order.contact_name || "--";
+
+        }
+        else {
+
+            orderTypeElement.textContent =
+                order.order_type || "--";
+
+        }
+
+        if (order.order_type !== "enterprise") {
+
+            customerNameElement.textContent =
+                order.name || "--";
+
+        }
 
         let phone =
             String(order.phone || "");
@@ -524,8 +673,17 @@ if(orderId){
         pickupNodeElement.textContent =
             order.pickup_node || "--";
 
+        deliveryAddressElement.textContent =
+            order.delivery_address || "--";
+
         remarkElement.textContent =
             order.remark || "--";
+
+        needCutleryElement.textContent =
+            order.need_cutlery ? "是" : "否";
+
+        orderStatusElement.textContent =
+            order.status || "--";
 
         const items = [];
 
